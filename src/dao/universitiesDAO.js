@@ -22,7 +22,7 @@ export default class UniversitiesDAO {
             .find({})
             .toArray()
         
-        console.log(`universities found: `, universities)
+        return universities
     }
 
     static async createUniversityReview(){
