@@ -20,6 +20,7 @@ export default class UniversitiesDAO {
     }
 
     static async getUniversities(){
+        //TODO: try catch ad normalize response with { error: Boolean, data: response data}
         const universities = await universitiesCollection
             .find({})
             .toArray()
