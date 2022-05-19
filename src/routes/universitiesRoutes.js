@@ -5,16 +5,28 @@ const router = express.Router()
 
 router.get("/", async (req, res) => {
 
-    let response = await UniversitiesDAO.getUniversities()
+    try {
 
-    return res.status(200).json({
-        success: true,
-        code: 200,
-        locale:"en",
-        message: "ok",
-        data: response
+        let response = await UniversitiesDAO.getUniversities()
 
-    })
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            locale:"en",
+            message: "ok",
+            data: response
+        })
+
+    } catch (error) {
+        
+        return res.status(500).json({
+            success: false,
+            locale:"en",
+            code: 500,
+            message: "Sorry, something went wrong",
+            data: null
+        })
+    }
 })
 
 
