@@ -4,6 +4,7 @@ let universities_experience_db
 let universitiesCollection
 
 export default class UniversitiesDAO {
+    
     static async injectDB(conn) {
 
         if (universitiesCollection) { return }
@@ -29,6 +30,29 @@ export default class UniversitiesDAO {
         return universities
     }
 
+    static async createUniversity(data) {
+        
+        try {
+            const insert = await universitiesCollection
+            .insertOne(data)
+        
+            if(insert.acknowledged) {
+                return {
+                    success: true,
+                    insertedId: insert.insertedId
+                }
+            }
+
+        } catch (error) {
+            console.log(error)
+            return {
+                success: false,
+                insertedId: insert.insertedId
+            }
+        }
+
+    }
+
     static async createUniversityReview(){
         //* Will have categories, object to contain: faculty/department, university, reviewer 
     }
@@ -47,7 +71,7 @@ export default class UniversitiesDAO {
         } catch (error) {
             if (error.toString().startsWith( "BSONTypeError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters",)) {
                 return {
-                    error: true,
+                    success: false,
                     message: "University not found"
                 }
             }

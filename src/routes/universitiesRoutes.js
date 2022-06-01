@@ -70,5 +70,32 @@ router.get("/:id", async (req, res) => {
 
 })
 
+router.post("/", async (req, res) => {
+    try {
+        console.log("university to insert: ",req.body)
+        const insertResponse = await UniversitiesDAO.createUniversity(req.body)
+        console.log("Inserting university....", insertResponse)
+
+        res.status(200).json({
+            success: true,
+            code: 201,
+            message:"ok",
+            message: insertResponse
+        })
+        
+    } catch (error) {
+
+        console.error(`Something went wrong while processing university data`, error)
+
+        return res.status(500).json({
+            success: false,
+            locale:"en",
+            code: 500,
+            message: "Sorry, something went wrong",
+            data: null
+        })
+    }
+})
+
 
 export default router

@@ -9,7 +9,7 @@ app.use(cors())
 
 
 // api routes
-app.use("/universities", universitiesRoutes)
+app.use("/api/universities", universitiesRoutes)
 
 app.use("*", async (req, res) => {
     return res.status(404).json({
