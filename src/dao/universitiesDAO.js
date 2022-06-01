@@ -22,12 +22,52 @@ export default class UniversitiesDAO {
 
     static async getUniversities(){
         //TODO: try catch ad normalize response with { error: Boolean, data: response data}
-        const universities = await universitiesCollection
+        try {
+            const universities = await universitiesCollection
             .find({})
             .toArray()
-        console.log("Getting universities from db...")
-        
-        return universities
+            console.log("Getting universities from db...")
+            
+            return {
+                success: true,
+                data: universities
+            }
+        } catch (error) {
+            console.log(error)
+            return null 
+        }
+    }
+
+    static async getUniversityById(id) {
+
+        try {
+            const university = await universitiesCollection.findOne({ _id: ObjectId(id)})
+            console.log("Found university :", university)
+            
+            if(!university) {
+                return {
+                    success: false,
+                    message: "Could not retrieve university"
+                }
+            }
+
+            return {
+                success: true,
+                data: university
+            }
+            
+            
+        } catch (error) {
+            if (error.toString().startsWith( "BSONTypeError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters",)) {
+                return {
+                    success: false,
+                    message: "University not found"
+                }
+            }
+          // Catch the InvalidId error by string matching, and then handle it.
+          console.error(`Something went wrong in getMovieByID: ${error}`)
+          throw error
+        }
     }
 
     static async createUniversity(data) {
@@ -45,12 +85,45 @@ export default class UniversitiesDAO {
 
         } catch (error) {
             console.log(error)
-            return {
-                success: false,
-                insertedId: insert.insertedId
-            }
+            return null 
         }
 
+    }
+
+    static async deleteUniversity(id) {
+
+        try {
+
+            const deleteObject = { _id: ObjectId(id) }
+        
+            const deleteResponse = await universitiesCollection.deleteOne(deleteObject)
+
+            console.log("DB deletion response of university: ", deleteResponse)
+
+            if(deleteResponse.deletedCount === 1) {
+                return {
+                    success: true,
+                    message: "University deleted"
+                }
+
+            } else {
+                console.log("Delete response: ", deleteResponse)
+                return {
+                    success: false,
+                    message: "University could not be deleted deleted"
+                }
+            }
+
+        } catch (error) {
+
+            console.log("Failed to delete university with id: ", id)
+            console.log(error)
+            
+            return {
+                success: false,
+                message: "COuld not delete this university"
+            }
+        }
     }
 
     static async createUniversityReview(){
@@ -61,25 +134,6 @@ export default class UniversitiesDAO {
         //TODO: create a review colllection
     }
 
-    static async getUniversityById(id) {
-
-        try {
-            const university = await universitiesCollection.findOne({ _id: ObjectId(id)})
-
-            return university
-            
-        } catch (error) {
-            if (error.toString().startsWith( "BSONTypeError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters",)) {
-                return {
-                    success: false,
-                    message: "University not found"
-                }
-            }
-          // Catch the InvalidId error by string matching, and then handle it.
-          console.error(`Something went wrong in getMovieByID: ${error}`)
-          throw error
-        }
-    }
 
     static async createVoice(){
         //* a voice is a type of post students would make to be heard by the university stuff or other students
