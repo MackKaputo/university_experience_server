@@ -55,8 +55,7 @@ export default class UniversitiesDAO {
                 success: true,
                 data: university
             }
-            
-            
+
         } catch (error) {
             if (error.toString().startsWith( "BSONTypeError: Argument passed in must be a string of 12 bytes or a string of 24 hex characters",)) {
                 return {
@@ -97,7 +96,6 @@ export default class UniversitiesDAO {
             const deleteObject = { _id: ObjectId(id) }
         
             const deleteResponse = await universitiesCollection.deleteOne(deleteObject)
-
             console.log("DB deletion response of university: ", deleteResponse)
 
             if(deleteResponse.deletedCount === 1) {
@@ -110,7 +108,7 @@ export default class UniversitiesDAO {
                 console.log("Delete response: ", deleteResponse)
                 return {
                     success: false,
-                    message: "University could not be deleted deleted"
+                    message: "University could not be deleted"
                 }
             }
 
