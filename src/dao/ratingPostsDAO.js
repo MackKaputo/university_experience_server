@@ -4,6 +4,7 @@ let universities_experience_db
 let universitiesCollection
 
 export default class ratingPostsDAO {
+    
     static async injectDB(conn) {
 
         if (universitiesCollection) { return }

@@ -1,5 +1,6 @@
 import express from "express"
 import UniversitiesDAO from "../dao/universitiesDAO.js"
+import { v4 as uuidv4 } from 'uuid'
 
 const router = express.Router()
 
@@ -9,15 +10,14 @@ router.get("/", async (req, res) => {
 
         let response = await UniversitiesDAO.getUniversities()
 
-        if(response.success) {
-            return res.status(200).json({
-                success: true,
-                code: 200,
-                locale:"en",
-                message: "ok",
-                data: response
-            })
-        }
+        return res.status(200).json({
+            success: true,
+            code: 200,
+            locale:"en",
+            message: "ok",
+            data: response
+        })
+        
 
     } catch (error) {
         
@@ -75,7 +75,13 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         console.log("university to insert: ",req.body)
-        const insertResponse = await UniversitiesDAO.createUniversity(req.body)
+        const insertResponse = await UniversitiesDAO.createUniversity({
+            uuid: uuidv4(),
+            ...req.body,
+             created_at: new Date(),
+             updated_at: new Date(),
+             deleted_at: null
+        })
         console.log("Inserting university....", insertResponse)
 
         res.status(200).json({

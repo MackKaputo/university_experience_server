@@ -28,10 +28,7 @@ export default class UniversitiesDAO {
             .toArray()
             console.log("Getting universities from db...")
             
-            return {
-                success: true,
-                data: universities
-            }
+            return universities
         } catch (error) {
             console.log(error)
             return null 
