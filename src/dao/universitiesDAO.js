@@ -38,7 +38,8 @@ export default class UniversitiesDAO {
     static async getUniversityById(id) {
 
         try {
-            const university = await universitiesCollection.findOne({ _id: ObjectId(id)})
+            //TODO: Use uuid as getter
+            const university = await universitiesCollection.findOne({"$or": [{ _id: ObjectId(id)}, { _id: id}]})
             console.log("Found university :", university)
             
             if(!university) {
@@ -72,7 +73,7 @@ export default class UniversitiesDAO {
             const insert = await universitiesCollection
             .insertOne(data)
         
-            if(insert.acknowledged) {
+            if(insert.insertedId) {
                 return {
                     success: true,
                     insertedId: insert.insertedId

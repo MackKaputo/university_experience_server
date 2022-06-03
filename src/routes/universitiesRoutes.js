@@ -78,9 +78,9 @@ router.post("/", async (req, res) => {
         const insertResponse = await UniversitiesDAO.createUniversity({
             uuid: uuidv4(),
             ...req.body,
-             created_at: new Date(),
-             updated_at: new Date(),
-             deleted_at: null
+            created_at: new Date(),
+            updated_at: new Date(),
+            deleted_at: null
         })
         console.log("Inserting university....", insertResponse)
 
