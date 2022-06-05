@@ -1,33 +1,53 @@
 import { ObjectId } from "mongodb"
 
 let universities_experience_db
-let universitiesCollection
+let ratingPostsCollection
 
 export default class ratingPostsDAO {
     
     static async injectDB(conn) {
 
-        if (universitiesCollection) { return }
+        if (ratingPostsCollection) { return }
 
         try {
             universities_experience_db = await conn.db(process.env.DB_UNIVERSITY_EXPERIENCE_NAME)
-            universitiesCollection = await conn.db(process.env.DB_UNIVERSITY_EXPERIENCE_NAME).collection("universities")
+            ratingPostsCollection = await conn.db(process.env.DB_UNIVERSITY_EXPERIENCE_NAME).collection("rating_posts")
             
             //! For testing purposes only
-            this.universitiesCollection = universitiesCollection
+            this.ratingPostsCollection = ratingPostsCollection
         } catch (error) {
-            console.error(`Unable to connect to the UniversitiesDAO: ${error}`)
+            console.error(`Unable to connect to the ratingPostsDAO: ${error}`)
         }
     }
 
-    static async getUniversities(){
+    static async getRatingPost(){
         //TODO: try catch ad normalize response with { error: Boolean, data: response data}
-        const universities = await universitiesCollection
+        const rating_posts = await ratingPostsCollection
             .find({})
             .toArray()
-        console.log("Getting universities from db...")
+        console.log("Getting rating posts from db...")
         
-        return universities
+        return rating_posts
+    }
+
+    static async createRatingPost(data) {
+        try {
+
+            console.log("Inserting rating post @DAO")
+            const insert = await ratingPostsCollection
+            .insertOne(data)
+            
+            if(insert.insertedId) {
+                return {
+                    success: true,
+                    insertedId: insert.insertedId
+                }
+            }
+
+        } catch (error) {
+            console.log(error)
+            return null 
+        }
     }
 
   

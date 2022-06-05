@@ -84,7 +84,7 @@ router.post("/", async (req, res) => {
         })
         console.log("Inserting university....", insertResponse)
 
-        res.status(200).json({
+        res.status(201).json({
             success: true,
             code: 201,
             message:"ok",
