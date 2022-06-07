@@ -1,5 +1,4 @@
 import express from "express"
-import UniversitiesDAO from "./dao/universitiesDAO.js"
 import cors from "cors"
 import universitiesRoutes from "./routes/universitiesRoutes.js"
 import ratingPostsRoutes from "./routes/ratingPostsRoutes.js"
