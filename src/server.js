@@ -7,6 +7,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+//Hello there, here develop
 
 // api routes
 app.use("/api/universities", universitiesRoutes)
