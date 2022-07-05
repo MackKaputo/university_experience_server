@@ -10,8 +10,23 @@ import UniversitiesDAO from "./dao/universitiesDAO.js"
 
 import app from "./server.js"
 import ratingPostsDAO from "./dao/ratingPostsDAO.js";
+import recordError from "./utils/recordError.js";
 
 const PORT = process.env.PORT || 4000
+
+process.on("uncaughtException", (err) => {
+    
+    const error = {
+        message: err.message,
+        name: err.name,
+        filename: err.filename,
+        lineNo: err.lineNumber,
+        columnNo: err.columnNumber,
+        stack: err.stack
+    }
+
+    recordError(error)
+})
 
 
 MongoClient.connect(
