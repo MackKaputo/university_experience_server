@@ -1,6 +1,6 @@
 function recordError(data) {
 
-    console.log(data)
+    console.log("An uncaughtException was found: ", data)
 }
 
 export default recordError

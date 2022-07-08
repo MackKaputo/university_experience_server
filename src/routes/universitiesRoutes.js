@@ -74,6 +74,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
+        //TODO: you can't trust anything coming from the user! req.body needs to be checked!
         console.log("university to insert: ",req.body)
         const insertResponse = await UniversitiesDAO.createUniversity({
             uuid: uuidv4(),
