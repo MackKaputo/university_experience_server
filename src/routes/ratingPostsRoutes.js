@@ -33,14 +33,14 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-
+        //TODO: you can't trust anything coming from the user! req.body needs to be checked!
         console.log("Rating post being inserted... ", req.body)
 
         let insertResponse = await ratingPostsDAO.createRatingPost({
             uuid: uuidv4(),
             ...req.body, 
-            created_at: new Date(),
-            updated_at: new Date(),
+            created_at: Date.now(),
+            updated_at: Date.now(),
             deleted_at: null
         })
 
@@ -77,5 +77,13 @@ router.post("/", async (req, res) => {
         })
     }
 })
+
+router.patch("/comments")
+
+
+
+
+
+
 
 export default router
