@@ -11,7 +11,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
   @Post('signup')
     signup() {
-      const user = { name: "mack"}
+      const user = { name: "mackp"}
       return this.authService.signup({ user })
   }
 
