@@ -1,7 +1,10 @@
-import { Module } from '@nestjs/common';
-import { MongoService } from './mongo.service';
+import { Global, Module } from '@nestjs/common';
 import { Db, MongoClient } from 'mongodb';
+import { MongoService } from './mongo.service';
 
+
+
+@Global()
 @Module({
   providers: [{
     provide: 'DATABASE_CONNECTION',
@@ -19,8 +22,20 @@ import { Db, MongoClient } from 'mongodb';
       } catch (error) {
         throw error
       }
-}
+    }
     }],
   exports: ['DATABASE_CONNECTION']
 })
 export class MongoModule {}
+
+// @Global()
+// @Module({
+//   providers: [{
+//     provide: MongoService,
+//     useFactory: () => {
+//       return new MongoService('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false')
+//     }
+//   }],
+//   exports: [MongoService]
+// })
+// export class MongoModule {}

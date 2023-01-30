@@ -11,20 +11,14 @@ export class MongoService {
     }
 
     async connect() {
-        try {
-            this.client = await MongoClient.connect(this.uri, {
-              useNewUrlParser: true,
-              useUnifiedTopology: true
-          } as unknown )
-
-          console.log("Connecting to database...")
-    
-          } catch (error) {
-            throw error
-          }
+        this.client = await MongoClient.connect(this.uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        } as unknown)
     }
 
     getClient() {
+        this.connect()
         return this.client
     }
 }
