@@ -9,3 +9,32 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  email String
+  password String
+  first_name String?
+  last_name String?
+  username String?
+
+}
+
+
+model University {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  uuid String
+  name String
+  short_name String?
+  country String
+  average_rating Float
+  detailed_average_rating Ratings
+}
+
+type Ratings {
+  location String
+}
