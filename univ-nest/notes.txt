@@ -8,3 +8,7 @@ yarn start:dev   --> run dev server
 
 Create a module:
 nest g module moduleName
+
+
+yarn add -D prisma
+npx prisma init --datasource-provider mongodb
