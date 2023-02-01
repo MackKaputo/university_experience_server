@@ -1,12 +1,14 @@
 import { ForbiddenException, Inject, Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
-import { Db } from "mongodb";
+import { Collection, Db } from "mongodb";
 import { IUser } from "./auth.interfase";
 import { v4 as uuidv } from 'uuid'
 import { AuthDto } from "./dto";
 import * as argon from "argon2"
 @Injectable({})
 export class AuthService {
-    usersCollection
+    //collections needed from db
+    usersCollection: Collection
+
     constructor(
         @Inject('DATABASE_CONNECTION')
         private db: Db
@@ -48,6 +50,7 @@ export class AuthService {
         try {
             const user = await this.usersCollection.findOne(
                 {  email: dto.email },
+                { projection: { _id: 0 }}
             )
     
             if(!user) {
@@ -64,7 +67,6 @@ export class AuthService {
             }
 
             delete user.password
-            delete user._id
 
             return {
                 success: true,
