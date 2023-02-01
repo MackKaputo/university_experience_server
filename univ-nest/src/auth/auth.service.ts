@@ -15,10 +15,8 @@ export class AuthService {
     }
 
     async signup(dto: AuthDto) {
-        //generate the password hash
-        const hash = await argon.hash(dto.password)
-        // const usersCollection = this.db.collection('users')
 
+        const hash = await argon.hash(dto.password)
         
         const isUserExist = await this.usersCollection.findOne({ email: dto.email })
         if(isUserExist) {
