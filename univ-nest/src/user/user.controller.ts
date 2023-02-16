@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { GetUser } from 'src/auth/decorator';
@@ -11,5 +11,10 @@ export class UserController {
     getMe(@GetUser() user: unknown ) {
         console.log("req.user: ", user)
         return user
+    }
+
+    @Patch("")
+    editUser() {
+
     }
 }

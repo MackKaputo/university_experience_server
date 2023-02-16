@@ -1,11 +1,22 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UniversityService } from './university.service';
+import { UniversityDto } from './dto';
 
 @Controller('universities')
 export class UniversityController {
     constructor(private universityService: UniversityService){}
-    @Get('')
+    @Get("")
     getUniversities() {
         return this.universityService.getUniversities()
+    }
+
+    @Get(":guid")
+    getUniversityByGuid(@Param("guid") guid: string ) {
+        return this.universityService.getUniversityByGuid(guid)
+    }
+
+    @Post("")
+    createUniversity(@Body() dto:UniversityDto){
+        return this.universityService.createUniversity(dto)
     }
 }
