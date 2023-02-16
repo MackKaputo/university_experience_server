@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UniversityDto } from './dto';
 import { Collection, Db } from 'mongodb';
 import { ConfigService } from '@nestjs/config';
@@ -42,9 +42,13 @@ export class UniversityService {
     }
 
     async getUniversityByGuid(guid: string) {
-        const university = this.universitiesCollection.findOne({
+        const university = await this.universitiesCollection.findOne({
             guid
         })
+
+        if(!university) {
+            return new NotFoundException("University not found")
+        }
 
         return university
     }
