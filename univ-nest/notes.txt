@@ -8,7 +8,14 @@ yarn start:dev   --> run dev server
 
 Create a module:
 nest g module moduleName
+nest g controller controllerName
+nest g service serviceName
 
 
 yarn add -D prisma
 npx prisma init --datasource-provider mongodb
+
+yarn add @nestjs/config   --> Adds the config module
+yarn add @nestjs/passport passport  ---> For Auth 
+yarn add @nestjs/jwt passport-jwt
+yarn add -D @types/passport-jwt

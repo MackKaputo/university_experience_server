@@ -10,7 +10,7 @@ import { MongoService } from './mongo.service';
     provide: 'DATABASE_CONNECTION',
     useFactory: async (): Promise<Db> => {
       try {
-        const client = await MongoClient.connect('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false', {
+        const client = await MongoClient.connect(process.env.DATABASE_URL, {
           useNewUrlParser: true,
           useUnifiedTopology: true
       } as unknown )

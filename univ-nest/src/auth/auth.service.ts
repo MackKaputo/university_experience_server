@@ -4,18 +4,21 @@ import { IUser } from "./auth.interfase";
 import { v4 as uuidv } from 'uuid'
 import { AuthDto } from "./dto";
 import * as argon from "argon2"
+import { ConfigService } from "@nestjs/config";
+import { JwtService } from "@nestjs/jwt";
 @Injectable({})
 export class AuthService {
     //collections needed from db
     usersCollection: Collection
 
     constructor(
-        @Inject('DATABASE_CONNECTION')
-        private db: Db
+        @Inject('DATABASE_CONNECTION') private db: Db,
+        private jwt: JwtService,
+        private config: ConfigService
     ){
+        // Can't access env vars here
         this.usersCollection = this.db.collection('users')
     }
-
     async signup(dto: AuthDto) {
 
         const hash = await argon.hash(dto.password)
@@ -37,6 +40,8 @@ export class AuthService {
             last_name: ""
         })
 
+        console.log("User Sign Up insert result: ", res)
+
         return { 
             success: true, 
             data: await this.usersCollection.findOne(
@@ -48,6 +53,7 @@ export class AuthService {
 
     async signin(dto: AuthDto) {
         try {
+            console.log(this.config.get('JWT_SECRET'))
             const user = await this.usersCollection.findOne(
                 {  email: dto.email },
                 { projection: { _id: 0 }}
@@ -66,18 +72,29 @@ export class AuthService {
                 throw new ForbiddenException("Incorrect password")
             }
 
-            delete user.password
-
-            return {
-                success: true,
-                data: user
-            }
+            return this.signToken(user.guid, user.email)
 
         } catch (error) {
             console.log(error)
             throw new InternalServerErrorException("Sorry, something went wrong. Try again later")
         }
         
+    }
+
+    async signToken(guid: string, email: string): Promise<{access_token: string}> {
+        const payload = {
+            sub: guid,
+            email
+        }
+
+        const token = await this.jwt.signAsync(payload, {
+            expiresIn: '45m',   //15 minutes
+            secret: this.config.get('JWT_SECRET')
+        })
+
+        return {
+            access_token: token
+        }
     }
 }
 
