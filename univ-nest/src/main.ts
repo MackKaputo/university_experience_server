@@ -9,6 +9,8 @@ async function bootstrap() {
     whitelist: true //only allow fields defined in the dto
   }))
 
+  app.enableCors()
+
   await app.listen(8000);
 }
 bootstrap();

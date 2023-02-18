@@ -19,3 +19,7 @@ yarn add @nestjs/config   --> Adds the config module
 yarn add @nestjs/passport passport  ---> For Auth 
 yarn add @nestjs/jwt passport-jwt
 yarn add -D @types/passport-jwt
+
+
+
+mongosh "mongodb+srv://mackcluster1.si6pn.mongodb.net/myFirstDatabase" --apiVersion 1 --username univ_project -p SBWiE30ORKZc7HPf

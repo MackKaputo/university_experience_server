@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UniversityService } from './university.service';
 import { UniversityDto } from './dto';
 
-@Controller('universities')
+@Controller('api/universities')
 export class UniversityController {
     constructor(private universityService: UniversityService){}
     @Get("")
