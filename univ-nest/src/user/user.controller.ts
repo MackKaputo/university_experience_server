@@ -1,10 +1,12 @@
-import { Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Patch, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
+import * as fs from "fs"
+import * as path from "path"
 
-@Controller('users')
+@Controller()
 export class UserController {
     @UseGuards(JwtGuard)
     @Get('me')
@@ -16,5 +18,12 @@ export class UserController {
     @Patch("")
     editUser() {
 
+    }
+
+    @Get()
+    getCertificate(@Res() res: Response) {
+        const filePath = "src/CE0644C6D01A217FD099B9CF392C7C87.txt"
+        const absolutePath = path.resolve(filePath);
+        res.sendFile(absolutePath)
     }
 }
