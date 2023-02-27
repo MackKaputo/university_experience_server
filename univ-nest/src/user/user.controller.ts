@@ -3,7 +3,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request, Response } from 'express';
 import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
-import * as fs from "fs"
 import * as path from "path"
 
 @Controller()
@@ -20,9 +19,9 @@ export class UserController {
 
     }
 
-    @Get()
+    @Get('/.well-known/pki-validation/')
     getCertificate(@Res() res: Response) {
-        const filePath = "src/CE0644C6D01A217FD099B9CF392C7C87.txt"
+        const filePath = "src/A6DE4962C1D690E7EC37ED4918581CF8.txt"
         const absolutePath = path.resolve(filePath);
         res.sendFile(absolutePath)
     }

@@ -69,14 +69,14 @@ export class AuthService {
             )
     
             if(!passwordMatch) {
-                throw new ForbiddenException("Incorrect password")
+                return new ForbiddenException("Incorrect password")
             }
 
             return this.signToken(user.guid, user.email)
 
         } catch (error) {
             console.log(error)
-            throw new InternalServerErrorException("Sorry, something went wrong. Try again later")
+            return new InternalServerErrorException("Sorry, something went wrong. Try again later")
         }
         
     }
