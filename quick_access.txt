@@ -1,4 +1,0 @@
-DB
----
-
-mongosh "mongodb+srv://mackcluster1.si6pn.mongodb.net/myFirstDatabase" --apiVersion 1 --username university_experience_client --password 1Q90rwlVLOb4AQKx
