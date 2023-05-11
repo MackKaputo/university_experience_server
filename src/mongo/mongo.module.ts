@@ -17,7 +17,7 @@ import { MongoService } from './mongo.service';
 
       console.log("Connecting to database...")
 
-      return client.db('university_experience')
+      return client.db(process.env.DB_NAME)
 
       } catch (error) {
         throw error

@@ -23,7 +23,7 @@ MongoModule = __decorate([
                             useUnifiedTopology: true
                         });
                         console.log("Connecting to database...");
-                        return client.db('university_experience');
+                        return client.db(process.env.DB_NAME);
                     }
                     catch (error) {
                         throw error;
