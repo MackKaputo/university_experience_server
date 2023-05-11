@@ -8,12 +8,14 @@ import { v4 as uuidv } from 'uuid'
 export class UniversityService {
 
     universitiesCollection: Collection
+    commentsCollection: Collection
 
     constructor(
         @Inject("DATABASE_CONNECTION") private db:Db,
         private config: ConfigService
     ) {
         this.universitiesCollection = this.db.collection("universities")
+        this.commentsCollection = this.db.collection("comments")
     }
     async getUniversities() {
         const universities = this.universitiesCollection.find({}).toArray()
@@ -51,5 +53,22 @@ export class UniversityService {
         }
 
         return university
+    }
+
+    async getUniversityComments(guid: string) {
+        try {
+            const universityComments = await this.commentsCollection.find({
+                university_guid : guid
+            }).toArray()
+
+            return {
+                success: true,
+                data: universityComments
+            }
+
+        } catch (error) {
+            console.log(error)
+            return
+        }
     }
 }

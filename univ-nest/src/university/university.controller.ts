@@ -19,4 +19,9 @@ export class UniversityController {
     createUniversity(@Body() dto:UniversityDto){
         return this.universityService.createUniversity(dto)
     }
+
+    @Get(":guid/comments")
+    getUniversityComments(@Param("guid") guid: string){
+        return this.universityService.getUniversityComments(guid)
+    }
 }

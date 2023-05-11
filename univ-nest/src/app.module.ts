@@ -6,6 +6,8 @@ import { UserModule } from "./user/user.module";
 import { MongoModule } from './mongo/mongo.module';
 import { ConfigModule } from "@nestjs/config";
 import { UniversityModule } from './university/university.module';
+import { CommentService } from './comment/comment.service';
+import { CommentModule } from './comment/comment.module';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { UniversityModule } from './university/university.module';
     AuthModule, 
     UserModule, 
     MongoModule, 
-    UniversityModule
-  ]
+    UniversityModule, CommentModule
+  ],
+  providers: [CommentService]
   // controllers: [AppController],
   // providers: [AppService],
 })
