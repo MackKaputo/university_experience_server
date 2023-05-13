@@ -25,4 +25,19 @@ export class UserController {
         const absolutePath = path.resolve(filePath);
         res.sendFile(absolutePath)
     }
+
+    @Get('health-ckeck')
+    healthCheck(@Res() res: Response){
+        res.status(200).json({
+            success: true,
+            data: {
+                message: "Server up and running"
+            }
+        })
+    }
+
+    @Get('test')
+    test(@Res() res: Response){
+        res.send("Hello there!")
+    }
 }
