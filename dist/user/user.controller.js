@@ -66,7 +66,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "getCertificate", null);
 __decorate([
-    (0, common_1.Get)('health-ckeck'),
+    (0, common_1.Get)('health-check'),
     __param(0, (0, common_1.Res)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
