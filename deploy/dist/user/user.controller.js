@@ -40,9 +40,6 @@ let UserController = class UserController {
     test(res) {
         res.send("Hello there!");
     }
-    root(res) {
-        res.send("Hello Root path!");
-    }
 };
 __decorate([
     (0, common_1.UseGuards)(guard_1.JwtGuard),
@@ -79,13 +76,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "test", null);
-__decorate([
-    (0, common_1.Get)('/'),
-    __param(0, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "root", null);
 UserController = __decorate([
     (0, common_1.Controller)()
 ], UserController);

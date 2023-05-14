@@ -5,5 +5,4 @@ export declare class UserController {
     getCertificate(res: Response): void;
     healthCheck(res: Response): void;
     test(res: Response): void;
-    root(res: Response): void;
 }
