@@ -40,4 +40,9 @@ export class UserController {
     test(@Res() res: Response){
         res.send("Hello there!")
     }
+
+    @Get('/')
+    root(@Res() res: Response){
+        res.send("Hello Root path!")
+    }
 }
