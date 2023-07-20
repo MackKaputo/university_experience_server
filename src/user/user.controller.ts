@@ -26,7 +26,7 @@ export class UserController {
         res.sendFile(absolutePath)
     }
 
-    @Get('health-ckeck')
+    @Get('health-check')
     healthCheck(@Res() res: Response){
         res.status(200).json({
             success: true,
